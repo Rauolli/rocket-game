@@ -1,20 +1,21 @@
 const app = new PIXI.Application();
 const ufoList = [];
 document.body.appendChild(app.view);
-const rocketExplosion = PIXI.sound.Sound.from({
-  url:'assets/explosion-rocket.wav',
-  preload: true
-});
+// Sounds
+// const rocketExplosion = PIXI.sound.Sound.from({
+//   url:'assets/explosion-rocket.wav',
+//   preload: true
+// });
 
-const laserSound = PIXI.sound.Sound.from({
-  url:'assets/laser-bolt.wav',
-  preload: true
-});
+// const laserSound = PIXI.sound.Sound.from({
+//   url:'assets/laser-bolt.wav',
+//   preload: true
+// });
 
-const ufoExplosion = PIXI.sound.Sound.from({  
-  url:'assets/explosion-ufo.wav',
-  preload: true
-});
+// const ufoExplosion = PIXI.sound.Sound.from({  
+//   url:'assets/explosion-ufo.wav',
+//   preload: true
+// });
 
 
 const rocket = PIXI.Sprite.from('assets/rocket1.png');
@@ -50,7 +51,7 @@ flyDown(meteor, 0.7);
 
 waitForCollision(ufo, rocket)
   .then(function(){
-    rocketExplosion.play();
+    //rocketExplosion.play();
     app.stage.removeChild(rocket);
     stopGame();
     const boom = PIXI.Sprite.from('assets/boom.png');
@@ -69,7 +70,7 @@ waitForCollision(ufo, rocket)
 
   waitForCollision(meteor, rocket)
     .then(function(){
-      rocketExplosion.play();
+      //rocketExplosion.play();
       app.stage.removeChild(rocket);
       stopGame();
       const boom = PIXI.Sprite.from('assets/boom.png');
@@ -96,7 +97,7 @@ function rightKeyPressed() {
   if (rocket.x < 750)
     rocket.x += 5;
 }
-
+     
 function spaceKeyPressed() {
   const bullet = PIXI.Sprite.from('assets/bullet.png');
   bullet.x = rocket.x + (rocket.width / 2) - 3;
@@ -105,7 +106,7 @@ function spaceKeyPressed() {
   bullet.scale.y = 0.04;
   flyUp(bullet);
   app.stage.addChild(bullet);
-  laserSound.play();
+  //laserSound.play();
   waitForCollision(bullet, ufoList).then(function([bullet, ufo]){
     app.stage.removeChild(bullet);
     app.stage.removeChild(ufo);
@@ -116,7 +117,7 @@ function spaceKeyPressed() {
     boom.y = ufo.y;
     boom.x = ufo.x+13;
     app.stage.addChild(boom);
-    ufoExplosion.play();
+    //ufoExplosion.play();
     fadeOut(boom);
    });
 }  
