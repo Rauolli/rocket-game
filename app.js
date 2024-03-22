@@ -1,21 +1,10 @@
 const app = new PIXI.Application();
 const ufoList = [];
 document.body.appendChild(app.view);
-// Sounds
-// const rocketExplosion = PIXI.sound.Sound.from({
-//   url:'assets/explosion-rocket.wav',
-//   preload: true
-// });
-
-// const laserSound = PIXI.sound.Sound.from({
-//   url:'assets/laser-bolt.wav',
-//   preload: true
-// });
-
-// const ufoExplosion = PIXI.sound.Sound.from({  
-//   url:'assets/explosion-ufo.wav',
-//   preload: true
-// });
+// Sounds mit cloneNode() klonen, um mehrere Instanzen gleichzeitig abspielen zu können 
+const rocketExplosionSound = new Audio('assets/explosion-rocket.wav');
+const laserSound = new Audio('assets/laser-bolt.wav');
+const ufoExplosionSound = new Audio('assets/explosion-ufo.wav');
 
 
 const rocket = PIXI.Sprite.from('assets/rocket1.png');
@@ -70,7 +59,7 @@ waitForCollision(ufo, rocket)
 
   waitForCollision(meteor, rocket)
     .then(function(){
-      //rocketExplosion.play();
+      rocketExplosionSound.cloneNode().play();
       app.stage.removeChild(rocket);
       stopGame();
       const boom = PIXI.Sprite.from('assets/boom.png');
@@ -106,7 +95,7 @@ function spaceKeyPressed() {
   bullet.scale.y = 0.04;
   flyUp(bullet);
   app.stage.addChild(bullet);
-  //laserSound.play();
+  laserSound.cloneNode().play();
   waitForCollision(bullet, ufoList).then(function([bullet, ufo]){
     app.stage.removeChild(bullet);
     app.stage.removeChild(ufo);
@@ -117,7 +106,7 @@ function spaceKeyPressed() {
     boom.y = ufo.y;
     boom.x = ufo.x+13;
     app.stage.addChild(boom);
-    //ufoExplosion.play();
+    ufoExplosionSound.cloneNode().play();
     fadeOut(boom);
    });
 }  
